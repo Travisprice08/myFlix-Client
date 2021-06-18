@@ -6,6 +6,12 @@ import { RegistrationView } from '../registration-view/registration-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 
+//import Row from 'react-bootstrap/Row';
+//import Col from 'react-bootstrap/Col';
+//import Button from 'react-bootstrap/Button';
+
+import './main-view.scss';
+
 export class MainView extends React.Component {
 
     constructor() {
@@ -76,6 +82,23 @@ export class MainView extends React.Component {
                     ))
                 }
             </div>
+
+            /*<div className="main-view">
+                {/* If the state of `selectedMovie` is not null, that selected movie will be returned otherwise
+                , all *movies will be returned}
+                {selectedMovie
+                    ? (
+                        <Row className="justify-content-md-center">
+                            <Col md={8}>
+                                <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
+                            </Col>
+                        </Row>
+                    )
+                    : movies.map(movie => (
+                        <MovieCard key={movie._id} movie={movie} onMovieClick={(newSelectedMovie) => { this.setSelectedMovie(newSelectedMovie) }} />
+                    ))
+                }
+            </div>*/
         );
     }
 }
