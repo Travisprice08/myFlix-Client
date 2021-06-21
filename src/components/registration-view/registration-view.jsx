@@ -1,7 +1,7 @@
-import React, { userState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './registration-view.scss';
-import { Form } from 'react-bootstrap';
+//import { Form } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Form';
 
@@ -39,7 +39,7 @@ export function RegistrationView(props) {
 
             <Form.Group controlId="formBirthdate">
                 <Form.Label>Birthdate:</Form.Label>
-                <Form.Control type="date" placeholder="00/00/0000" value={birthdate} onChange={e => setPassword(e.target.value)} required />
+                <Form.Control type="date" placeholder="00/00/0000" value={birthdate} onChange={e => setBirthdate(e.target.value)} required />
             </Form.Group>
             <span>
                 <Button type="submit">Submit</Button>

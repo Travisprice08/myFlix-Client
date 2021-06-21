@@ -59,10 +59,20 @@ export class MainView extends React.Component {
         });
     }
 
+    toggleRegister = (e) => {
+        e.preventDefault();
+        this.setState({
+            register: !this.state.register
+        })
+    }
+
     render() {
         const { movies, selectedMovie, register, user } = this.state;
 
-        if (register) return <RegistrationView onRegistration={register => this.onRegister(register)} />
+        if (register) return <RegistrationView onRegistration={register => this.onRegister(register)} toggleRegister={this.toggleRegister} />
+
+        if (this.state.user === null)
+            return <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} toggleRegister={this.toggleRegister} />;
 
         /* If there is no user, the LoginView is rendered. If there is a user logged in, the user
         details are *passed as a prop to the LoginView*/
@@ -102,3 +112,4 @@ export class MainView extends React.Component {
         );
     }
 }
+

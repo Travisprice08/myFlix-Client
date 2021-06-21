@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+//import './login-view.scss';
+//import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
@@ -25,9 +27,8 @@ export function LoginView(props) {
                 <Form.Label>Password:</Form.Label>
                 <Form.Control type="password" onChange={e => setPassword(e.target.value)} />
             </Form.Group>
-            <Button variant="primary" type="submit" onClick={handleSubmit}>
-                Submit
-          </Button>
+            <Button variant="primary" type="submit" onClick={handleSubmit}>Submit</Button>
+            <Button type="secondary" onClick={props.toggleRegister}>Register</Button>
         </Form>
     );
 }
