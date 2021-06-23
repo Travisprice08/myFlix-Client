@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import './registration-view.scss';
-//import { Form } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { render } from 'react-dom';
-import { LoginView } from '../login-view/login-view';
+
+import './registration-view.scss';
 
 export function RegistrationView(props) {
     const [username, setUsername] = useState('');
@@ -58,6 +57,6 @@ export function RegistrationView(props) {
     )
 }
 
-RegistrationView.propTypes = {
+/*RegistrationView.propTypes = {
     onRegistration: PropTypes.func.isRequired
-};
+};*/
