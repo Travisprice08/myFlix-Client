@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import './registration-view.scss';
 
 export function RegistrationView(props) {
     const [username, setUsername] = useState('');
@@ -18,6 +17,10 @@ export function RegistrationView(props) {
         e.preventDefault();
         console.log(username, password, email, birthdate);
         props.onRegister(username);
+    }
+
+    const onBackClick = (e) => {
+        props.toggleRegister(e);
     }
 
 
@@ -50,7 +53,7 @@ export function RegistrationView(props) {
 
                     <Button variant="primary" type="submit" onClick={handleSubmit}>Submit</Button>
                     {' '}
-                    <Button variant="secondary" onClick={() => { onBackClick(null); }}>Back</Button>
+                    <Button variant="secondary" onClick={(e) => { onBackClick(e); }}>Back</Button>
                 </Form>
             </Col>
         </Row>
