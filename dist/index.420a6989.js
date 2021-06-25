@@ -21889,13 +21889,13 @@ class MainView extends _reactDefault.default.Component {
         };
     }
     componentDidMount() {
-        _axiosDefault.default.get('https://myfilmdb.herokuapp.com/movies').then((response)=>{
+        let accessToken = localStorage.getItem('token');
+        if (accessToken !== null) {
             this.setState({
-                movies: response.data
+                user: localStorage.getItem('user')
             });
-        }).catch((error)=>{
-            console.log(error);
-        });
+            this.getMovies(accessToken);
+        }
     }
     //componentWillUnmount {}
     //code executed just before the moment the componeent gets removed from the DOM
@@ -21913,6 +21913,14 @@ class MainView extends _reactDefault.default.Component {
         localStorage.setItem('token', authData.token);
         localStorage.setItem('user', authData.user.Username);
         this.getMovies(authData.token);
+    }
+    //Add log out button
+    onLoggedOut() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        this.setState({
+            user: null
+        });
     }
     onRegister(register) {
         this.setState({
@@ -21948,7 +21956,7 @@ class MainView extends _reactDefault.default.Component {
             toggleRegister: this.toggleRegister,
             __source: {
                 fileName: "/Users/Travis/Documents/WebDev/myFlix-Folder/myFlix-Client/src/components/main-view/main-view.jsx",
-                lineNumber: 92
+                lineNumber: 99
             },
             __self: this
         }));
@@ -21958,7 +21966,7 @@ class MainView extends _reactDefault.default.Component {
             toggleRegister: this.toggleRegister,
             __source: {
                 fileName: "/Users/Travis/Documents/WebDev/myFlix-Folder/myFlix-Client/src/components/main-view/main-view.jsx",
-                lineNumber: 95
+                lineNumber: 102
             },
             __self: this
         }));
@@ -21968,7 +21976,7 @@ class MainView extends _reactDefault.default.Component {
             ,
             __source: {
                 fileName: "/Users/Travis/Documents/WebDev/myFlix-Folder/myFlix-Client/src/components/main-view/main-view.jsx",
-                lineNumber: 99
+                lineNumber: 106
             },
             __self: this
         }));
@@ -21977,35 +21985,36 @@ class MainView extends _reactDefault.default.Component {
             className: "main-view",
             __source: {
                 fileName: "/Users/Travis/Documents/WebDev/myFlix-Folder/myFlix-Client/src/components/main-view/main-view.jsx",
-                lineNumber: 102
+                lineNumber: 109
             },
             __self: this
         }));
-        return(/*#__PURE__*/ _reactDefault.default.createElement(_containerDefault.default, {
+        return(//<button onClick={() => { this.onLoggedOut() }}>Logout</button>
+        /*#__PURE__*/ _reactDefault.default.createElement(_containerDefault.default, {
             __source: {
                 fileName: "/Users/Travis/Documents/WebDev/myFlix-Folder/myFlix-Client/src/components/main-view/main-view.jsx",
-                lineNumber: 106
+                lineNumber: 113
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement("div", {
             className: "main-view",
             __source: {
                 fileName: "/Users/Travis/Documents/WebDev/myFlix-Folder/myFlix-Client/src/components/main-view/main-view.jsx",
-                lineNumber: 107
+                lineNumber: 114
             },
             __self: this
         }, selectedMovie ? /*#__PURE__*/ _reactDefault.default.createElement(_rowDefault.default, {
             className: "justify-content-md-center",
             __source: {
                 fileName: "/Users/Travis/Documents/WebDev/myFlix-Folder/myFlix-Client/src/components/main-view/main-view.jsx",
-                lineNumber: 112
+                lineNumber: 119
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_colDefault.default, {
             md: 8,
             __source: {
                 fileName: "/Users/Travis/Documents/WebDev/myFlix-Folder/myFlix-Client/src/components/main-view/main-view.jsx",
-                lineNumber: 113
+                lineNumber: 120
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_movieView.MovieView, {
@@ -22015,7 +22024,7 @@ class MainView extends _reactDefault.default.Component {
             },
             __source: {
                 fileName: "/Users/Travis/Documents/WebDev/myFlix-Folder/myFlix-Client/src/components/main-view/main-view.jsx",
-                lineNumber: 114
+                lineNumber: 121
             },
             __self: this
         }))) : movies.map((movie)=>/*#__PURE__*/ _reactDefault.default.createElement(_movieCard.MovieCard, {
@@ -22026,7 +22035,7 @@ class MainView extends _reactDefault.default.Component {
                 },
                 __source: {
                     fileName: "/Users/Travis/Documents/WebDev/myFlix-Folder/myFlix-Client/src/components/main-view/main-view.jsx",
-                    lineNumber: 119
+                    lineNumber: 126
                 },
                 __self: this
             })

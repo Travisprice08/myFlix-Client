@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import axios from 'axios';
 
 
 export function RegistrationView(props) {
@@ -18,6 +19,21 @@ export function RegistrationView(props) {
         console.log(username, password, email, birthdate);
         props.onRegister(username);
     }
+
+    axios.post('https://myfilmdb.herokuapp.com/users', {
+        Username: username,
+        Password: password,
+        Email: email,
+        Birthday: birthday
+    })
+        .then(response => {
+            const data = response.data;
+            console.log(data);
+            window.open('/', '_self'); // the second arguement, '_self,' is necessary so the page opens in the current tab
+        })
+        .catch(e => {
+            console.log('error registering the user')
+        });
 
     const onBackClick = (e) => {
         props.toggleRegister(e);
