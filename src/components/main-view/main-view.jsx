@@ -99,7 +99,9 @@ export class MainView extends React.Component {
     }
 
     render() {
-        const { movies, user } = this.state;
+        const { movies, register, user } = this.state;
+
+        if (register) return <RegistrationView onRegistration={register => this.onRegister(register)} toggleRegister={this.toggleRegister} />
 
         if (!user) return <Row>
             <Col>
