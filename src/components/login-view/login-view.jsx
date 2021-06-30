@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
+import Link from 'react-router-dom';
+
 import './login-view.scss';
 
 export function LoginView(props) {
@@ -41,7 +43,9 @@ export function LoginView(props) {
                         <Form.Control type="password" onChange={e => setPassword(e.target.value)} />
                     </Form.Group>
                     <Button variant="primary" type="submit" onClick={handleSubmit}>Submit</Button>
-                    <Button type="secondary" onClick={props.toggleRegister}>Register</Button>
+                    <Link to={`/register`}>
+                        <Button type="link" >Register</Button>
+                    </Link>
                 </Form>
             </Col>
         </Row>
