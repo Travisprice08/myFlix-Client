@@ -18,7 +18,9 @@ export function RegistrationView() {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(username, password, email, birthdate);
-        props.onRegister(username);
+        //props.onRegister(username);
+        let setisValid = formValidation();
+        if (setisValid) { }
     }
 
     axios.post('https://myfilmdb.herokuapp.com/users', {
@@ -69,8 +71,9 @@ export function RegistrationView() {
                     </Form.Group>
 
                     <Button variant="primary" type="submit" onClick={handleSubmit}>Submit</Button>
-                    {' '}
-                    <Button variant="secondary" onClick={(e) => { props.toggleRegister(e); }}>Back</Button>
+                    <Link to={`/`}>
+                        <Button type="button">Back</Button>
+                    </Link>
                 </Form>
             </Col>
         </Row>

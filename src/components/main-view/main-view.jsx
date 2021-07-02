@@ -95,24 +95,13 @@ export class MainView extends React.Component {
                     movies: response.data
                 });
             })
-            .cath(function (error) {
+            .catch(function (error) {
                 console.log(error);
             });
     }
 
     render() {
-        const { movies, register, user } = this.state;
-
-        /*if (!user) return <Row>
-            <Col>
-                <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
-            </Col>
-        </Row>*/
-
-        if (register) return <RegistrationView onRegistration={register => this.onRegister(register)} toggleRegister={this.toggleRegister} />
-
-        /*if (this.state.user === null)
-            return <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} toggleRegister={this.toggleRegister} />;*/
+        const { movies, register, user, history } = this.state;
 
         return (
             //<button onClick={() => { this.onLoggedOut() }}>Logout</button>
@@ -121,7 +110,8 @@ export class MainView extends React.Component {
 
                     <Route exact path="/" render={() => {
                         if (!user) return <Col>
-                            <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+                            <LoginView onLoggedIn={user => this.onLoggedIn(user)}
+                                toggleRegister={this.toggleRegister} />
                         </Col>
                         if (movies.length === 0) return <div className="main-view" />
                         return movies.map(m => (
