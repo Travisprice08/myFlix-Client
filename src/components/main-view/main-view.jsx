@@ -7,13 +7,15 @@ import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
+import { DirectorView } from '../director-view/director-view';
+import { GenreView } from '../genre-view/genre-view';
+import { ProfileView } from '../Profile-view/profile-view';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 
 import './main-view.scss';
-import { match } from 'micromatch';
 
 export class MainView extends React.Component {
 
@@ -101,11 +103,16 @@ export class MainView extends React.Component {
     render() {
         const { movies, register, user } = this.state;
 
-        if (!user) return <Row>
+        /*if (!user) return <Row>
             <Col>
                 <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
             </Col>
-        </Row>
+        </Row>*/
+
+        if (register) return <RegistrationView onRegistration={register => this.onRegister(register)} toggleRegister={this.toggleRegister} />
+
+        /*if (this.state.user === null)
+            return <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} toggleRegister={this.toggleRegister} />;*/
 
         return (
             //<button onClick={() => { this.onLoggedOut() }}>Logout</button>
@@ -130,7 +137,6 @@ export class MainView extends React.Component {
                             <RegistrationView />
                         </Col>
                     }} />
-                    {/* you keep the rest routes here */}
 
                     <Route path="/movies/:movieId" render={({ match, history }) => {
                         if (!user) return

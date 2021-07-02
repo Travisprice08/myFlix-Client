@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import './registration-view.scss';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 
-export function RegistrationView(props) {
+export function RegistrationView() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -24,7 +25,7 @@ export function RegistrationView(props) {
         Username: username,
         Password: password,
         Email: email,
-        Birthday: birthday
+        Birthdate: birthdate
     })
         .then(response => {
             const data = response.data;
@@ -69,7 +70,7 @@ export function RegistrationView(props) {
 
                     <Button variant="primary" type="submit" onClick={handleSubmit}>Submit</Button>
                     {' '}
-                    <Button variant="secondary" onClick={(e) => { onBackClick(e); }}>Back</Button>
+                    <Button variant="secondary" onClick={(e) => { props.toggleRegister(e); }}>Back</Button>
                 </Form>
             </Col>
         </Row>
