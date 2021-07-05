@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
@@ -14,8 +15,10 @@ import { ProfileView } from '../Profile-view/profile-view';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
 
 import './main-view.scss';
+import { Navbar } from 'react-bootstrap';
 
 export class MainView extends React.Component {
 
@@ -107,6 +110,23 @@ export class MainView extends React.Component {
             //<button onClick={() => { this.onLoggedOut() }}>Logout</button>
             <Router>
                 <Row className="main-view justify-content-md-center">
+                    <Container>
+                        <Navbar>
+                            <Navbar.Brand>MyFlix</Navbar.Brand>
+                            <ul>
+                                <Link to={`/`}>
+                                    <Button variant="link">Movies</Button>
+                                </Link>
+                                <Link to={`/users/${user}`}>
+                                    <Button variant="link">Profile</Button>
+                                </Link>
+                                <Link to={`/`}>
+                                    <Button variant="link" onClick={() => this.onLoggedOut()}
+                                    >Logout</Button>
+                                </Link>
+                            </ul>
+                        </Navbar>
+                    </Container>
 
                     <Route exact path="/" render={() => {
                         if (!user) return <Col>
@@ -127,6 +147,19 @@ export class MainView extends React.Component {
                             <RegistrationView />
                         </Col>
                     }} />
+
+                    <Route path="/users/:userID" render={() => {
+                        if (!user) return
+                        if (user.token === '') return <Redirect to="/" />
+                        return (
+                            <Col>
+                                <ProfileView
+                                    token={localStorage.getItem('token')}
+                                    onBackClick={() => history.goBack()} />
+                            </Col>
+                        )
+                    }} />
+
 
                     <Route path="/movies/:movieId" render={({ match, history }) => {
                         if (!user) return

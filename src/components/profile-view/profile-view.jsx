@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 import axios from "axios";
-import Link from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button, Row, Col, Form } from "react-bootstrap";
 
 export class ProfileView extends React.Component {
@@ -43,7 +43,7 @@ export class ProfileView extends React.Component {
         const url = "https://myfilmdb.herokuapp.com/users" +
             localStorage.getItem("user") +
             "/movies/" +
-            movise._id;
+            movieInfo._id;
         axios
             .delete(url, {
                 headers: { Authorization: ` Bearer ${token}` },
@@ -51,7 +51,7 @@ export class ProfileView extends React.Component {
             .then((response) => {
                 console.log(response);
                 this.componentDidMount();
-                alert(movie.Title + " has been removed from your list.");
+                alert(movieInfo.Title + " has been removed from your list.");
             });
     }
 
@@ -141,7 +141,7 @@ export class ProfileView extends React.Component {
     render() {
         const { user, movies } = this.props;
         const FavoriteMovieList = movies.filter((movie) => {
-            return this.state.FavoriteMovies.includes(movie._id);
+            return this.state.FavoriteMovies.includes(movieInfo._id);
         });
 
         return (
@@ -213,13 +213,13 @@ export class ProfileView extends React.Component {
                         <Row>
                             {FavoriteMovieList.map((movie) => {
                                 return (
-                                    <Col md={4} key={movie._id}>
-                                        <div key={movie._id}>
+                                    <Col md={4} key={movieInfo._id}>
+                                        <div key={movieInfo._id}>
                                             <Card>
-                                                <Card.Img variant="top" src={movie.ImagePath} />
+                                                <Card.Img variant="top" src={movieInfo.ImagePath} />
                                                 <Card.Body>
                                                     <Link to={`/movies/${movie._id}`}>
-                                                        <Card.Title>{movie.Title}</Card.Title>
+                                                        <Card.Title>{movieInfo.Title}</Card.Title>
                                                     </Link>
                                                     <Button onClick={() => this.removeFavorite(movie)}>Remove</Button>
                                                 </Card.Body>
