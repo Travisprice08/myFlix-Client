@@ -8,31 +8,31 @@ import './movie-view.scss';
 import axios from 'axios';
 
 export class MovieView extends React.Component {
-    handleAdd() {
-        const token = localStorage.getItem("token");
-        const user = localStorage.getItem("user");
-        axios.post(`https://myfilmdb.herokuapp.com/users/${user}` + "/movies/" +
-            this.props.movie._id, {},
-            { headers: { Authorization: `Bearer ${token}` } }
-        )
-            .then((response) => {
-                console.log(response);
-                alert(this.props.movie.Title + " has been added to your favorites!");
-            })
-    }
-
-    handleRemove() {
-        const token = localStorage.getItem("token");
-        const user = localStorage.getItem("user");
-        axios.delete(`https://myfilmdb.herokuapp.com/users/${user}` + "/movies/" +
-            this.props.movie._id, {},
-            { headers: { Authorization: `Bearer ${token}` } }
-        )
-            .then((response) => {
-                console.log(response);
-                alert(this.props.movie.Title + " has been removed from your list.");
-            })
-    }
+    /* handleAdd() {
+         const token = localStorage.getItem("token");
+         const user = localStorage.getItem("user");
+         axios.post(`https://myfilmdb.herokuapp.com/users/${user}` + "/movies/" +
+             this.props.movieInfo._id, {},
+             { headers: { Authorization: `Bearer ${token}` } }
+         )
+             .then((response) => {
+                 console.log(response);
+                 alert(this.props.movieInfo.Title + " has been added to your favorites!");
+             })
+     }
+ 
+     handleRemove() {
+         const token = localStorage.getItem("token");
+         const user = localStorage.getItem("user");
+         axios.delete(`https://myfilmdb.herokuapp.com/users/${user}` + "/movies/" +
+             this.props.movieInfo._id, {},
+             { headers: { Authorization: `Bearer ${token}` } }
+         )
+             .then((response) => {
+                 console.log(response);
+                 alert(this.props.movieInfo.Title + " has been removed from your list.");
+             })
+     }*/
 
     render() {
 

@@ -24,10 +24,9 @@ export class MainView extends React.Component {
 
     constructor() {
         super();
-
         this.state = {
-            movies: [],
-            //selectedMovie: null,
+            //movie: [],
+
             user: null
         };
     }
@@ -39,17 +38,48 @@ export class MainView extends React.Component {
                 user: localStorage.getItem('user')
             });
             this.getMovies(accessToken);
+            this.getUsers(accessToken);
+
         }
+    }
+
+    // src/components/main-view/main-view.jsx
+    getMovies(token) {
+        axios.get('https://myfilmdb.herokuapp.com/movies', {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+            .then(response => {
+                //Assign the result to the state
+                this.props.setMovies(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    getUsers(token) {
+        axios.get('https://myfilmdb.herokuapp.com/users', {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+            .then(response => {
+                this.setState({
+                    users: response.data
+                });
+                console.log(response)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     //componentWillUnmount {}
     //code executed just before the moment the componeent gets removed from the DOM
 
-    setSelectedMovie(newSelectedMovie) {
+    /*setSelectedMovie(newSelectedMovie) {
         this.setState({
             selectedMovie: newSelectedMovie
         });
-    }
+    }*/
 
     /* When a user successfully logs in, this function updates the `user` property in state
        to that *particular user*/
@@ -63,6 +93,7 @@ export class MainView extends React.Component {
         localStorage.setItem('token', authData.token);
         localStorage.setItem('user', authData.user.Username);
         this.getMovies(authData.token);
+        this.getUsers(authData.token);
     }
 
     //Add log out button
@@ -80,6 +111,8 @@ export class MainView extends React.Component {
         });
     }
 
+
+
     toggleRegister = (e) => {
         e.preventDefault();
         this.setState({
@@ -87,24 +120,11 @@ export class MainView extends React.Component {
         })
     }
 
-    // src/components/main-view/main-view.jsx
-    getMovies(token) {
-        axios.get('https://myfilmdb.herokuapp.com/movies', {
-            headers: { Authorization: `Bearer ${token}` }
-        })
-            .then(response => {
-                //Assign the result to the state
-                this.setState({
-                    movies: response.data
-                });
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
+
 
     render() {
-        const { movies, register, user, history } = this.state;
+        const { movies } = this.props;
+        const { user, history } = this.state;
 
         return (
             //<button onClick={() => { this.onLoggedOut() }}>Logout</button>
@@ -136,7 +156,7 @@ export class MainView extends React.Component {
                         if (movies.length === 0) return <div className="main-view" />
                         return movies.map(m => (
                             <Col md={3} key={m._id}>
-                                <MovieCard movie={m} />
+                                <MovieCard movieInfo={m} />
                             </Col>
                         ))
                     }} />
@@ -165,7 +185,7 @@ export class MainView extends React.Component {
                         if (!user) return
                         if (movies.length === 0) return <div className="main-view" />
                         return <Col md={8}>
-                            <MovieView movie={movies.find(m => m._id === match.params.moviesId)} onBackClick={() => history.goBack()} />
+                            <MovieView movieInfo={movies.find(m => m._id === match.params.moviesId)} onBackClick={() => history.goBack()} />
                         </Col>
                     }} />
                     <Route exact path="/genres/:name" render={({ match, history }) => {

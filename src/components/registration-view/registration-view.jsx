@@ -14,13 +14,12 @@ export function RegistrationView() {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [birthdate, setBirthdate] = useState('');
+    const validated = useState(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(username, password, email, birthdate);
         //props.onRegister(username);
-        let setisValid = formValidation();
-        if (setisValid) { }
     }
 
     axios.post('https://myfilmdb.herokuapp.com/users', {
@@ -33,20 +32,21 @@ export function RegistrationView() {
             const data = response.data;
             console.log(data);
             window.open('/', '_self'); // the second arguement, '_self,' is necessary so the page opens in the current tab
+            alert("Your account has been created!");
         })
-        .catch(e => {
-            console.log('error registering the user')
+        .catch(error => {
+            if (error.response && error.response.status === 400) {
+                alert('The entered value is not valid.')
+            }
+            console.log(username, password, email, birthdate);
         });
 
-    const onBackClick = (e) => {
-        props.toggleRegister(e);
-    }
 
 
     return (
         <Row className="justify-content-md-center">
             <Col md={8}>
-                <Form>
+                <Form className="RegForm" onSubmmit={handleSubmit} noValidate validate={validated}>
                     <Form.Group controlId="formUsername">
                         <Form.Label>Username:</Form.Label>
                         <Form.Control type="text" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} required />
