@@ -5,7 +5,6 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 import { Link } from 'react-router-dom';
 
@@ -49,10 +48,12 @@ export function LoginView(props) {
                         <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required />
                         <Form.Control.Feedback type="invalid">Please enter a valid password.</Form.Control.Feedback>
                     </Form.Group>
-                    <Button variant="primary" type="submit" onClick={handleSubmit}>Submit</Button>
-                    <Link to={`/register`}>
-                        <Button type="link" >Register</Button>
-                    </Link>
+                    <span>
+                        <Button variant="primary" type="submit" onClick={() => { handleSubmit }}>Submit</Button>
+                        <Link to={`/register`}>
+                            <Button type="link" >Register</Button>
+                        </Link>
+                    </span>
                 </Form>
             </Col>
         </Row>

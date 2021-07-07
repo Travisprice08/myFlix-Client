@@ -69,11 +69,12 @@ export function RegistrationView() {
                         <Form.Label>Birthdate:</Form.Label>
                         <Form.Control type="date" placeholder="00/00/0000" value={birthdate} onChange={e => setBirthdate(e.target.value)} required />
                     </Form.Group>
-
-                    <Button variant="primary" type="submit" onClick={handleSubmit}>Submit</Button>
-                    <Link to={`/`}>
-                        <Button type="button">Back</Button>
-                    </Link>
+                    <span>
+                        <Button variant="primary" type="submit" onClick={handleSubmit}>Submit</Button>
+                        <Link to={`/`}>
+                            <Button type="button">Back</Button>
+                        </Link>
+                    </span>
                 </Form>
             </Col>
         </Row>
