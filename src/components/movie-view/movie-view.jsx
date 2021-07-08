@@ -8,31 +8,31 @@ import './movie-view.scss';
 import axios from 'axios';
 
 export class MovieView extends React.Component {
-    /* handleAdd() {
-         const token = localStorage.getItem("token");
-         const user = localStorage.getItem("user");
-         axios.post(`https://myfilmdb.herokuapp.com/users/${user}` + "/movies/" +
-             this.props.movieInfo._id, {},
-             { headers: { Authorization: `Bearer ${token}` } }
-         )
-             .then((response) => {
-                 console.log(response);
-                 alert(this.props.movieInfo.Title + " has been added to your favorites!");
-             })
-     }
- 
-     handleRemove() {
-         const token = localStorage.getItem("token");
-         const user = localStorage.getItem("user");
-         axios.delete(`https://myfilmdb.herokuapp.com/users/${user}` + "/movies/" +
-             this.props.movieInfo._id, {},
-             { headers: { Authorization: `Bearer ${token}` } }
-         )
-             .then((response) => {
-                 console.log(response);
-                 alert(this.props.movieInfo.Title + " has been removed from your list.");
-             })
-     }*/
+    handleAdd() {
+        const token = localStorage.getItem("token");
+        const user = localStorage.getItem("user");
+        axios.post(`https://myfilmdb.herokuapp.com/users/${user}` + "/movies/" +
+            this.props.movieInfo._id, {},
+            { headers: { Authorization: `Bearer ${token}` } }
+        )
+            .then((response) => {
+                console.log(response);
+                alert(this.props.movieInfo.Title + " has been added to your favorites!");
+            })
+    }
+
+    handleRemove() {
+        const token = localStorage.getItem("token");
+        const user = localStorage.getItem("user");
+        axios.delete(`https://myfilmdb.herokuapp.com/users/${user}` + "/movies/" +
+            this.props.movieInfo._id, {},
+            { headers: { Authorization: `Bearer ${token}` } }
+        )
+            .then((response) => {
+                console.log(response);
+                alert(this.props.movieInfo.Title + " has been removed from your list.");
+            })
+    }
 
     render() {
 
@@ -42,6 +42,9 @@ export class MovieView extends React.Component {
             <Row className="justify-content-md-center">
                 <Col md={6}>
                     <div className="movie-view">
+                        <div>
+                            <Button onClick={() => { this.handleAdd(movie); }}>Favorite</Button>
+                        </div>
                         <div className="movie-poster">
                             <img src={movieInfo.ImagePath} />
                         </div>

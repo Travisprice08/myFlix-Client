@@ -20,33 +20,32 @@ export function RegistrationView() {
         e.preventDefault();
         console.log(username, password, email, birthdate);
         //props.onRegister(username);
-    }
 
-    axios.post('https://myfilmdb.herokuapp.com/users', {
-        Username: username,
-        Password: password,
-        Email: email,
-        Birthdate: birthdate
-    })
-        .then(response => {
-            const data = response.data;
-            console.log(data);
-            window.open('/', '_self'); // the second arguement, '_self,' is necessary so the page opens in the current tab
-            alert("Your account has been created!");
+        axios.post('https://myfilmdb.herokuapp.com/users', {
+            Username: username,
+            Password: password,
+            Email: email,
+            Birthdate: birthdate
         })
-        .catch(error => {
-            if (error.response && error.response.status === 400) {
-                alert('The entered value is not valid.')
-            }
-            console.log(username, password, email, birthdate);
-        });
-
+            .then(response => {
+                const data = response.data;
+                console.log(data);
+                window.open('/', '_self'); // the second arguement, '_self,' is necessary so the page opens in the current tab
+                alert("Your account has been created!");
+            })
+            .catch(error => {
+                if (error.response && error.response.status === 400) {
+                    alert('The entered value is not valid.')
+                }
+                console.log(username, password, email, birthdate);
+            });
+    }
 
 
     return (
         <Row className="justify-content-md-center">
             <Col md={8}>
-                <Form className="RegForm" onSubmmit={handleSubmit} noValidate validate={validated}>
+                <Form className="RegForm" onSubmit={handleSubmit} noValidate validate={validated}>
                     <Form.Group controlId="formUsername">
                         <Form.Label>Username:</Form.Label>
                         <Form.Control type="text" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} required />

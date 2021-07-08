@@ -29,7 +29,7 @@ export function LoginView(props) {
                 props.onLoggedIn(data);
             })
             .catch(e => {
-                console.log('no such user')
+                console.log('Who dis?')
             });
     };
 
@@ -49,7 +49,7 @@ export function LoginView(props) {
                         <Form.Control.Feedback type="invalid">Please enter a valid password.</Form.Control.Feedback>
                     </Form.Group>
                     <span>
-                        <Button variant="primary" type="submit" onClick={() => { handleSubmit }}>Submit</Button>
+                        <Button variant="primary" type="submit" onClick={handleSubmit}>Submit</Button>
                         <Link to={`/register`}>
                             <Button type="link" >Register</Button>
                         </Link>
