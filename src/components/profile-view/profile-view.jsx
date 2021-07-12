@@ -21,7 +21,12 @@ export class ProfileView extends React.Component {
 
     componentDidMount() {
         let accessToken = localStorage.getItem("token");
-        this.getUsers(accessToken);
+        if (accessToken !== null) {
+            this.setState({
+                user: localStorage.getItem('user')
+            });
+            this.getUsers(accessToken);
+        }
     }
 
     getUsers(token) {
@@ -39,7 +44,7 @@ export class ProfileView extends React.Component {
             });
     }
 
-    removeFavorite(movie) {
+    removeFavorite(movieInfo) {
         const token = localStorage.getItem("token");
         const url = "https://myfilmdb.herokuapp.com/users" +
             localStorage.getItem("user") +
@@ -140,9 +145,9 @@ export class ProfileView extends React.Component {
 
 
     render() {
-        const { user, movies } = this.props;
+        const { user, movieInfo } = this.props;
         const { UsernameError, EmailError, PasswordError, BirthdateError } = this.state;
-        const FavoriteMovieList = movies.filter((movieInfo) => {
+        const FavoriteMovieList = movieInfo.filter((movieInfo) => {
             return this.state.FavoriteMovies.includes(movieInfo._id);
         });
 

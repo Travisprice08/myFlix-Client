@@ -3,11 +3,17 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 
 import './movie-view.scss';
 import axios from 'axios';
 
 export class MovieView extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {}
+    }
+
     handleAdd() {
         const token = localStorage.getItem("token");
         const user = localStorage.getItem("user");

@@ -177,13 +177,15 @@ export class MainView extends React.Component {
                         )
                     }} />
 
-
+                    {/*Error for cannot read propert 'length' of undefined here, added if statement*/}
                     <Route path="/movies/:movieId" render={({ match, history }) => {
                         if (!user) return
-                        if (movies.length === 0) return <div className="main-view" />
-                        return <Col md={8}>
-                            <MovieView movieInfo={movies.find(m => m._id === match.params.moviesId)} onBackClick={() => history.goBack()} />
-                        </Col>
+                        if (movies) {
+                            if (movies.length === 0) return <div className="main-view" />
+                            return <Col md={8}>
+                                <MovieView movieInfo={movies.find(m => m._id === match.params.moviesId)} onBackClick={() => history.goBack()} />
+                            </Col>
+                        }
                     }} />
 
                     <Route exact path="/genres/:name" render={({ match, history }) => {
