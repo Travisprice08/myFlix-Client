@@ -26397,7 +26397,7 @@ try {
     })
     }*/
     render() {
-      const {movies, user, history} = this.state;
+      const {movies, user, director, genre, history} = this.state;
       return (
         /*#__PURE__*/_reactDefault.default.createElement(_reactRouterDom.BrowserRouter, {
           __self: this,
@@ -26671,7 +26671,7 @@ try {
           exact: true,
           path: "/genres/:name",
           render: ({match, history}) => {
-            if (!user) return;
+            if (!user || !movies) return;
             if (movies.length === 0) return (
               /*#__PURE__*/_reactDefault.default.createElement("div", {
                 className: "main-view",
@@ -26713,7 +26713,7 @@ try {
         }), /*#__PURE__*/_reactDefault.default.createElement(_reactRouterDom.Route, {
           path: "/directors/:name",
           render: ({match}) => {
-            if (!user) return;
+            if (!user || !movies) return;
             if (movies.length === 0) return (
               /*#__PURE__*/_reactDefault.default.createElement("div", {
                 className: "main-view",
@@ -33515,7 +33515,7 @@ try {
     handleAdd() {
       const token = localStorage.getItem("token");
       const user = localStorage.getItem("user");
-      _axiosDefault.default.post(`https://myfilmdb.herokuapp.com/users/${user}` + "/movies/" + this.props.movieInfo._id, {}, {
+      _axiosDefault.default.post(`https://myfilmdb.herokuapp.com/users/${user}` + "/movies/" + this.props.movie._id, {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -35203,8 +35203,7 @@ try {
   var _reactDefault = _parcelHelpers.interopDefault(_react);
   var _reactBootstrapButton = require('react-bootstrap/Button');
   var _reactBootstrapButtonDefault = _parcelHelpers.interopDefault(_reactBootstrapButton);
-  var _propTypes = require('prop-types');
-  var _propTypesDefault = _parcelHelpers.interopDefault(_propTypes);
+  require('prop-types');
   var _reactBootstrapRow = require('react-bootstrap/Row');
   var _reactBootstrapRowDefault = _parcelHelpers.interopDefault(_reactBootstrapRow);
   var _reactBootstrapCol = require('react-bootstrap/Col');
@@ -35328,14 +35327,6 @@ try {
       );
     }
   }
-  DirectorView.propTypes = {
-    director: _propTypesDefault.default.shape({
-      Name: _propTypesDefault.default.string.isRequired,
-      Bio: _propTypesDefault.default.string.isRequired,
-      Birth: _propTypesDefault.default.string.isRequired
-    }),
-    onBackClick: _propTypesDefault.default.func.isRequired
-  };
   helpers.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;

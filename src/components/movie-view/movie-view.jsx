@@ -18,7 +18,7 @@ export class MovieView extends React.Component {
         const token = localStorage.getItem("token");
         const user = localStorage.getItem("user");
         axios.post(`https://myfilmdb.herokuapp.com/users/${user}` + "/movies/" +
-            this.props.movieInfo._id, {},
+            this.props.movie._id, {},
             { headers: { Authorization: `Bearer ${token}` } }
         )
             .then((response) => {
