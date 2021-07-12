@@ -165,7 +165,7 @@ export class MainView extends React.Component {
                     }} />
 
                     <Route path="/users/:useId" render={() => {
-                        if (!user) return
+                        if (!user || !movies) return
                         //if (user.token === '') return <Redirect to="/" />
                         return (
                             <Col>
@@ -183,7 +183,7 @@ export class MainView extends React.Component {
                         if (movies) {
                             if (movies.length === 0) return <div className="main-view" />
                             return <Col md={8}>
-                                <MovieView movieInfo={movies.find(m => m._id === match.params.moviesId)} onBackClick={() => history.goBack()} />
+                                <MovieView movieInfo={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()} />
                             </Col>
                         }
                     }} />

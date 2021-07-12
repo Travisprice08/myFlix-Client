@@ -15,6 +15,12 @@ export class ProfileView extends React.Component {
             Email: "",
             Birthday: "",
             FavoriteMovies: [],
+            user: "",
+            users: [],
+            UsernameError: {},
+            PasswordError: {},
+            EmailError: {},
+            BirthdateError: {}
 
         };
     }
@@ -145,10 +151,10 @@ export class ProfileView extends React.Component {
 
 
     render() {
-        const { user, movieInfo } = this.props;
+        const { user, movies } = this.props;
         const { UsernameError, EmailError, PasswordError, BirthdateError } = this.state;
-        const FavoriteMovieList = movieInfo.filter((movieInfo) => {
-            return this.state.FavoriteMovies.includes(movieInfo._id);
+        const FavoriteMovieList = movies.filter((movie) => {
+            return this.state.FavoriteMovies.includes(movie._id);
         });
 
         return (
