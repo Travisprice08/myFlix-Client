@@ -29,7 +29,7 @@ export function LoginView(props) {
                 props.onLoggedIn(data);
             })
             .catch(e => {
-                console.log('Who dis?')
+                console.log('No such user')
             });
     };
 

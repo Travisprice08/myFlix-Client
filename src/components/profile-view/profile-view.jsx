@@ -86,10 +86,10 @@ export class ProfileView extends React.Component {
 
     handleUpdate() {
         const token = localStorage.getItem("token");
-        const user = localStorage.getItem("user");
+        const username = localStorage.getItem("user");
         let setisValid = this.formValidation();
         if (setisValid) {
-            axios.put(`https://myfilmdb.herokuapp.com/users/${user}`,
+            axios.put(`https://myfilmdb.herokuapp.com/users/${username}`,
                 {
                     Username: this.state.Username,
                     Password: this.state.Password,
@@ -100,7 +100,7 @@ export class ProfileView extends React.Component {
             )
                 .then((response) => {
                     const data = response.data;
-                    localStorage.setItem("user", data.Username);
+                    localStorage.setItem("user", data.username);
                     console.log(data);
                     alert(user + "information has been updated.");
                 })

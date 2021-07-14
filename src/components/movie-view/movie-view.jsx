@@ -18,7 +18,7 @@ export class MovieView extends React.Component {
         const token = localStorage.getItem("token");
         const user = localStorage.getItem("user");
         axios.post(`https://myfilmdb.herokuapp.com/users/${user}` + "/movies/" +
-            this.props.movie._id, {},
+            this.props.movieInfo._id, {},
             { headers: { Authorization: `Bearer ${token}` } }
         )
             .then((response) => {
@@ -49,7 +49,7 @@ export class MovieView extends React.Component {
                 <Col md={6}>
                     <div className="movie-view">
                         <div>
-                            <Button onClick={() => { this.handleAdd(movie); }}>Favorite</Button>
+                            <Button onClick={() => { this.handleAdd(movieInfo); }}>Favorite</Button>
                         </div>
                         <div className="movie-poster">
                             <img src={movieInfo.ImagePath} />
