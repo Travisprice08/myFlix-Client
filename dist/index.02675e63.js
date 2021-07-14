@@ -26322,7 +26322,7 @@ try {
       super();
       this.state = {
         // movie: [],
-        director: "",
+        director: [],
         genre: "",
         user: null
       };
@@ -26537,7 +26537,7 @@ try {
                   columnNumber: 33
                 }
               }, /*#__PURE__*/_reactDefault.default.createElement(_movieCardMovieCard.MovieCard, {
-                movieInfo: m,
+                movie: m,
                 __self: this,
                 __source: {
                   fileName: _jsxFileName,
@@ -26651,7 +26651,7 @@ try {
                     columnNumber: 36
                   }
                 }, /*#__PURE__*/_reactDefault.default.createElement(_movieViewMovieView.MovieView, {
-                  movieInfo: movies.find(m => m._id === match.params.movieId),
+                  movie: movies.find(m => m._id === match.params.movieId),
                   onBackClick: () => history.goBack(),
                   __self: this,
                   __source: {
@@ -26673,7 +26673,7 @@ try {
           exact: true,
           path: "/genres/:name",
           render: ({match, history}) => {
-            if (!user || !movies) return;
+            if (!user) return;
             if (movies.length === 0) return (
               /*#__PURE__*/_reactDefault.default.createElement("div", {
                 className: "main-view",
@@ -26715,38 +26715,39 @@ try {
         }), /*#__PURE__*/_reactDefault.default.createElement(_reactRouterDom.Route, {
           path: "/directors/:name",
           render: ({match, history}) => {
-            if (!user || !movies) return;
-            if (movies.length === 0) return (
-              /*#__PURE__*/_reactDefault.default.createElement("div", {
-                className: "main-view",
-                __self: this,
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 202,
-                  columnNumber: 57
-                }
-              })
-            );
-            return (
-              /*#__PURE__*/_reactDefault.default.createElement(_reactBootstrapColDefault.default, {
-                md: 8,
-                __self: this,
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 203,
-                  columnNumber: 32
-                }
-              }, /*#__PURE__*/_reactDefault.default.createElement(_directorViewDirectorView.DirectorView, {
-                director: movies.find(m => m.director.name === match.params.name).director,
-                onBackClick: () => history.goBack(),
-                __self: this,
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 204,
-                  columnNumber: 29
-                }
-              }))
-            );
+            if (movies) {
+              if (movies.length === 0) return (
+                /*#__PURE__*/_reactDefault.default.createElement("div", {
+                  className: "main-view",
+                  __self: this,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 202,
+                    columnNumber: 61
+                  }
+                })
+              );
+              return (
+                /*#__PURE__*/_reactDefault.default.createElement(_reactBootstrapColDefault.default, {
+                  md: 8,
+                  __self: this,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 203,
+                    columnNumber: 36
+                  }
+                }, /*#__PURE__*/_reactDefault.default.createElement(_directorViewDirectorView.DirectorView, {
+                  director: movies.find(m => m.Director.Name === match.params.name).Director,
+                  onBackClick: () => history.goBack(),
+                  __self: this,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 204,
+                    columnNumber: 33
+                  }
+                }))
+              );
+            }
           },
           __self: this,
           __source: {
@@ -32471,7 +32472,7 @@ try {
   var _jsxFileName = "/Users/Travis/Documents/WebDev/myFlix-Folder/myFlix-Client/src/components/movie-card/movie-card.jsx";
   class MovieCard extends _reactDefault.default.Component {
     render() {
-      const {movieInfo} = this.props;
+      const {movie} = this.props;
       return (
         /*#__PURE__*/_reactDefault.default.createElement("div", {
           __self: this,
@@ -32489,7 +32490,7 @@ try {
           }
         }, /*#__PURE__*/_reactDefault.default.createElement(_reactBootstrapCardDefault.default.Img, {
           variant: "top",
-          src: movieInfo.ImagePath,
+          src: movie.ImagePath,
           __self: this,
           __source: {
             fileName: _jsxFileName,
@@ -32510,15 +32511,15 @@ try {
             lineNumber: 21,
             columnNumber: 25
           }
-        }, movieInfo.Title), /*#__PURE__*/_reactDefault.default.createElement(_reactBootstrapCardDefault.default.Text, {
+        }, movie.Title), /*#__PURE__*/_reactDefault.default.createElement(_reactBootstrapCardDefault.default.Text, {
           __self: this,
           __source: {
             fileName: _jsxFileName,
             lineNumber: 22,
             columnNumber: 25
           }
-        }, movieInfo.Description), /*#__PURE__*/_reactDefault.default.createElement(_reactRouterDom.Link, {
-          to: `/movies/${movieInfo._id}`,
+        }, movie.Description), /*#__PURE__*/_reactDefault.default.createElement(_reactRouterDom.Link, {
+          to: `/movies/${movie._id}`,
           __self: this,
           __source: {
             fileName: _jsxFileName,
@@ -33517,29 +33518,29 @@ try {
     handleAdd() {
       const token = localStorage.getItem("token");
       const user = localStorage.getItem("user");
-      _axiosDefault.default.post(`https://myfilmdb.herokuapp.com/users/${user}` + "/movies/" + this.props.movieInfo._id, {}, {
+      _axiosDefault.default.post(`https://myfilmdb.herokuapp.com/users/${user}` + "/movies/" + this.props.movie._id, {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       }).then(response => {
         console.log(response);
-        alert(this.props.movieInfo.Title + " has been added to your favorites!");
+        alert(this.props.movie.Title + " has been added to your favorites!");
       });
     }
     handleRemove() {
       const token = localStorage.getItem("token");
       const user = localStorage.getItem("user");
-      _axiosDefault.default.delete(`https://myfilmdb.herokuapp.com/users/${user}` + "/movies/" + this.props.movieInfo._id, {}, {
+      _axiosDefault.default.delete(`https://myfilmdb.herokuapp.com/users/${user}` + "/movies/" + this.props.movie._id, {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       }).then(response => {
         console.log(response);
-        alert(this.props.movieInfo.Title + " has been removed from your list.");
+        alert(this.props.movie.Title + " has been removed from your list.");
       });
     }
     render() {
-      const {movieInfo} = this.props;
+      const {movie} = this.props;
       return (
         /*#__PURE__*/_reactDefault.default.createElement(_reactBootstrapRowDefault.default, {
           className: "justify-content-md-center",
@@ -33574,7 +33575,7 @@ try {
           }
         }, /*#__PURE__*/_reactDefault.default.createElement(_reactBootstrapButtonDefault.default, {
           onClick: () => {
-            this.handleAdd(movieInfo);
+            this.handleAdd(movie);
           },
           __self: this,
           __source: {
@@ -33591,7 +33592,7 @@ try {
             columnNumber: 25
           }
         }, /*#__PURE__*/_reactDefault.default.createElement("img", {
-          src: movieInfo.ImagePath,
+          src: movie.ImagePath,
           __self: this,
           __source: {
             fileName: _jsxFileName,
@@ -33622,7 +33623,7 @@ try {
             lineNumber: 59,
             columnNumber: 29
           }
-        }, movieInfo.Title)), /*#__PURE__*/_reactDefault.default.createElement("div", {
+        }, movie.Title)), /*#__PURE__*/_reactDefault.default.createElement("div", {
           className: "movie-description",
           __self: this,
           __source: {
@@ -33646,8 +33647,8 @@ try {
             lineNumber: 63,
             columnNumber: 29
           }
-        }, movieInfo.Description)), /*#__PURE__*/_reactDefault.default.createElement(_reactRouterDom.Link, {
-          to: `/directors/${movieInfo.Director.Name}`,
+        }, movie.Description)), /*#__PURE__*/_reactDefault.default.createElement(_reactRouterDom.Link, {
+          to: `/directors/${movie.Director.Name}`,
           __self: this,
           __source: {
             fileName: _jsxFileName,
@@ -33663,7 +33664,7 @@ try {
             columnNumber: 29
           }
         }, "Director")), /*#__PURE__*/_reactDefault.default.createElement(_reactRouterDom.Link, {
-          to: `/genres/${movieInfo.Genre.Name}`,
+          to: `/genres/${movie.Genre.Name}`,
           __self: this,
           __source: {
             fileName: _jsxFileName,
@@ -35551,7 +35552,7 @@ try {
       const username = localStorage.getItem("user");
       let setisValid = this.formValidation();
       if (setisValid) {
-        _axiosDefault.default.put(`https://myfilmdb.herokuapp.com/users/${username}`, {
+        _axiosDefault.default.put(`https://myfilmdb.herokuapp.com/users/:userId`, {
           Username: this.state.Username,
           Password: this.state.Password,
           Email: this.state.Email,

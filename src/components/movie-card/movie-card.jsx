@@ -11,16 +11,16 @@ import './movie-card.scss';
 
 export class MovieCard extends React.Component {
     render() {
-        const { movieInfo } = this.props;
+        const { movie } = this.props;
 
         return (
             <div>
                 <Card>
-                    <Card.Img variant="top" src={movieInfo.ImagePath} />
+                    <Card.Img variant="top" src={movie.ImagePath} />
                     <Card.Body>
-                        <Card.Title>{movieInfo.Title}</Card.Title>
-                        <Card.Text>{movieInfo.Description}</Card.Text>
-                        <Link to={`/movies/${movieInfo._id}`}>
+                        <Card.Title>{movie.Title}</Card.Title>
+                        <Card.Text>{movie.Description}</Card.Text>
+                        <Link to={`/movies/${movie._id}`}>
                             <Button variant="link">Open</Button>
                         </Link>
                     </Card.Body>

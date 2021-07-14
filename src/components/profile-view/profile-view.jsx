@@ -89,7 +89,7 @@ export class ProfileView extends React.Component {
         const username = localStorage.getItem("user");
         let setisValid = this.formValidation();
         if (setisValid) {
-            axios.put(`https://myfilmdb.herokuapp.com/users/${username}`,
+            axios.put(`https://myfilmdb.herokuapp.com/users/:userId`,
                 {
                     Username: this.state.Username,
                     Password: this.state.Password,

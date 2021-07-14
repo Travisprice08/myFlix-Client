@@ -18,12 +18,12 @@ export class MovieView extends React.Component {
         const token = localStorage.getItem("token");
         const user = localStorage.getItem("user");
         axios.post(`https://myfilmdb.herokuapp.com/users/${user}` + "/movies/" +
-            this.props.movieInfo._id, {},
+            this.props.movie._id, {},
             { headers: { Authorization: `Bearer ${token}` } }
         )
             .then((response) => {
                 console.log(response);
-                alert(this.props.movieInfo.Title + " has been added to your favorites!");
+                alert(this.props.movie.Title + " has been added to your favorites!");
             })
     }
 
@@ -31,42 +31,42 @@ export class MovieView extends React.Component {
         const token = localStorage.getItem("token");
         const user = localStorage.getItem("user");
         axios.delete(`https://myfilmdb.herokuapp.com/users/${user}` + "/movies/" +
-            this.props.movieInfo._id, {},
+            this.props.movie._id, {},
             { headers: { Authorization: `Bearer ${token}` } }
         )
             .then((response) => {
                 console.log(response);
-                alert(this.props.movieInfo.Title + " has been removed from your list.");
+                alert(this.props.movie.Title + " has been removed from your list.");
             })
     }
 
     render() {
 
-        const { movieInfo } = this.props;
+        const { movie } = this.props;
 
         return (
             <Row className="justify-content-md-center">
                 <Col md={6}>
                     <div className="movie-view">
                         <div>
-                            <Button onClick={() => { this.handleAdd(movieInfo); }}>Favorite</Button>
+                            <Button onClick={() => { this.handleAdd(movie); }}>Favorite</Button>
                         </div>
                         <div className="movie-poster">
-                            <img src={movieInfo.ImagePath} />
+                            <img src={movie.ImagePath} />
                         </div>
                         <div className="movie-title">
                             <span className="label">Title: </span>
-                            <span className="value">{movieInfo.Title}</span>
+                            <span className="value">{movie.Title}</span>
                         </div>
                         <div className="movie-description">
                             <span className="label">Description: </span>
-                            <span className="value">{movieInfo.Description}</span>
+                            <span className="value">{movie.Description}</span>
                         </div>
-                        <Link to={`/directors/${movieInfo.Director.Name}`}>
+                        <Link to={`/directors/${movie.Director.Name}`}>
                             <Button variant="link">Director</Button>
                         </Link>
 
-                        <Link to={`/genres/${movieInfo.Genre.Name}`}>
+                        <Link to={`/genres/${movie.Genre.Name}`}>
                             <Button variant="link">Genre</Button>
                         </Link>
                         <Link to={`/`}>

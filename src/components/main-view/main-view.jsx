@@ -27,7 +27,7 @@ export class MainView extends React.Component {
         super();
         this.state = {
             //movie: [],
-            director: "",
+            director: [],
             genre: "",
             user: null
         };
@@ -152,7 +152,7 @@ export class MainView extends React.Component {
                             if (movies.length === 0) return <div className="main-view" />;
                             return movies.map(m => (
                                 <Col md={3} key={m._id}>
-                                    <MovieCard movieInfo={m} />
+                                    <MovieCard movie={m} />
                                 </Col>
                             ))
                         }
@@ -184,13 +184,13 @@ export class MainView extends React.Component {
                         if (movies) {
                             if (movies.length === 0) return <div className="main-view" />
                             return <Col md={8}>
-                                <MovieView movieInfo={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()} />
+                                <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()} />
                             </Col>
                         }
                     }} />
 
                     <Route exact path="/genres/:name" render={({ match, history }) => {
-                        if (!user || !movies) return
+                        if (!user) return
                         if (movies.length === 0) return <div className="main-view" />;
                         return <Col md={8}>
                             <GenreView genre={movies.find(m => m.genre.name === match.params.name).genre} onBackClick={() => history.goBack()} />
@@ -198,12 +198,14 @@ export class MainView extends React.Component {
                     }} />
 
                     <Route path="/directors/:name" render={({ match, history }) => {
-                        if (!user || !movies) return
-                        if (movies.length === 0) return <div className="main-view" />;
-                        return <Col md={8}>
-                            <DirectorView director={movies.find(m => m.director.name === match.params.name).director} onBackClick={() => history.goBack()} />
-                        </Col>
-                    }} />
+                        if (movies) {
+                            if (movies.length === 0) return <div className="main-view" />;
+                            return <Col md={8}>
+                                <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} onBackClick={() => history.goBack()} />
+                            </Col>
+                        }
+                    }
+                    } />
                 </Row>
             </Router>
         );
