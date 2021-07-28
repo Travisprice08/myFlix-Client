@@ -6,6 +6,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Button, Row, Col, Form } from "react-bootstrap";
 
+
 export class ProfileView extends React.Component {
     constructor(props) {
         super(props);
@@ -86,10 +87,10 @@ export class ProfileView extends React.Component {
 
     handleUpdate() {
         const token = localStorage.getItem("token");
-        const username = localStorage.getItem("user");
+        const user = localStorage.getItem("user");
         let setisValid = this.formValidation();
         if (setisValid) {
-            axios.put(`https://myfilmdb.herokuapp.com/users/:userId`,
+            axios.put(`https://myfilmdb.herokuapp.com/users/${user}`,
                 {
                     Username: this.state.Username,
                     Password: this.state.Password,
@@ -160,22 +161,22 @@ export class ProfileView extends React.Component {
         return (
             <div className="userProfile">
                 <Container>
-                    <Row className="justify-content-md-center">
+                    {/*<Row className="justify-content-md-center">
                         <Col md={8}>
                             <div className="favMovies">
                                 <Card.Text>Favorite Movies:</Card.Text>
                                 <Row>
-                                    {FavoriteMovieList.map((movieInfo) => {
+                                    {FavoriteMovieList.map((movie) => {
                                         return (
-                                            <Col md={8} key={movieInfo._id}>
-                                                <div key={movieInfo._id}>
+                                            <Col md={3} key={movie._id}>
+                                                <div key={movie._id}>
                                                     <Card>
-                                                        <Card.Img src={movieInfo.ImagePath} />
+                                                        <Card.Img src={movie.ImagePath} />
                                                         <Card.Body>
-                                                            <Link to={`/movies/${movieInfo._id}`}>
-                                                                <Card.Title>{movieInfo.Title}</Card.Title>
+                                                            <Link to={`/movies/${movie._id}`}>
+                                                                <Card.Title>{movie.Title}</Card.Title>
                                                             </Link>
-                                                            <Button onClick={() => this.removeFavorite(movieInfo)}>Remove</Button>
+                                                            <Button onClick={() => this.removeFavorite(movie)}>Remove</Button>
                                                         </Card.Body>
                                                     </Card>
                                                 </div>
@@ -185,7 +186,7 @@ export class ProfileView extends React.Component {
                                 </Row>
                             </div>
                         </Col>
-                    </Row>
+                                </Row>*/}
 
                     <div className="profile-view">
                         <Form className="justify-content-md-center">
@@ -255,13 +256,13 @@ export class ProfileView extends React.Component {
                             <Row>
                                 {FavoriteMovieList.map((movie) => {
                                     return (
-                                        <Col md={4} key={movieInfo._id}>
-                                            <div key={movieInfo._id}>
+                                        <Col md={4} key={movie._id}>
+                                            <div key={movie._id}>
                                                 <Card>
-                                                    <Card.Img variant="top" src={movieInfo.ImagePath} />
+                                                    <Card.Img variant="top" src={movie.ImagePath} />
                                                     <Card.Body>
                                                         <Link to={`/movies/${movie._id}`}>
-                                                            <Card.Title>{movieInfo.Title}</Card.Title>
+                                                            <Card.Title>{movie.Title}</Card.Title>
                                                         </Link>
                                                         <Button onClick={() => this.removeFavorite(movie)}>Remove</Button>
                                                     </Card.Body>

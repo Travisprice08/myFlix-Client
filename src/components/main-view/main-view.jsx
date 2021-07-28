@@ -27,7 +27,7 @@ export class MainView extends React.Component {
         super();
         this.state = {
             //movie: [],
-            director: [],
+            director: "",
             genre: "",
             user: null
         };
@@ -109,19 +109,10 @@ export class MainView extends React.Component {
     }
 
 
-
-    /*toggleRegister = (e) => {
-        e.preventDefault();
-        this.setState({
-            register: !this.state.register
-        })
-    }*/
-
-
-
     render() {
 
-        const { movies, user, director, genre, history } = this.state;
+
+        const { movies, director, genre, user, history } = this.state;
 
         return (
             <Router>
@@ -165,7 +156,7 @@ export class MainView extends React.Component {
                         </Col>
                     }} />
 
-                    <Route path="/users/:userId" render={() => {
+                    <Route path="/users/:username" render={() => {
                         if (!user || !movies) return
                         //if (user.token === '') return <Redirect to="/" />
                         return (
@@ -189,7 +180,7 @@ export class MainView extends React.Component {
                         }
                     }} />
 
-                    <Route exact path="/genres/:name" render={({ match, history }) => {
+                    <Route exact path="/movies/genres/:name" render={({ match, history }) => {
                         if (!user) return
                         if (movies.length === 0) return <div className="main-view" />;
                         return <Col md={8}>
@@ -197,7 +188,7 @@ export class MainView extends React.Component {
                         </Col>
                     }} />
 
-                    <Route path="/directors/:name" render={({ match, history }) => {
+                    <Route path="/movies/directors/:name" render={({ match, history }) => {
                         if (movies) {
                             if (movies.length === 0) return <div className="main-view" />;
                             return <Col md={8}>

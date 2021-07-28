@@ -14,7 +14,7 @@ export class MovieView extends React.Component {
         this.state = {}
     }
 
-    handleAdd() {
+    handleAdd(movie) {
         const token = localStorage.getItem("token");
         const user = localStorage.getItem("user");
         axios.post(`https://myfilmdb.herokuapp.com/users/${user}` + "/movies/" +
