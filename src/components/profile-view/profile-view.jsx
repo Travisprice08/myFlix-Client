@@ -259,7 +259,7 @@ export class ProfileView extends React.Component {
                                         <Col md={4} key={movie._id}>
                                             <div key={movie._id}>
                                                 <Card>
-                                                    <Card.Img variant="top" src={movie.ImagePath} />
+                                                    <Card.Img variant="top" src={movie.ImageUrl} />
                                                     <Card.Body>
                                                         <Link to={`/movies/${movie._id}`}>
                                                             <Card.Title>{movie.Title}</Card.Title>

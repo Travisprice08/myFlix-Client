@@ -26665,7 +26665,7 @@ try {
           }
         }), /*#__PURE__*/_reactDefault.default.createElement(_reactRouterDom.Route, {
           exact: true,
-          path: "/movies/genres/:name",
+          path: "/genres/:name",
           render: ({match, history}) => {
             if (!user) return;
             if (movies.length === 0) return (
@@ -26707,7 +26707,7 @@ try {
             columnNumber: 21
           }
         }), /*#__PURE__*/_reactDefault.default.createElement(_reactRouterDom.Route, {
-          path: "/movies/directors/:name",
+          path: "/directors/:name",
           render: ({match, history}) => {
             if (movies) {
               if (movies.length === 0) return (
@@ -32484,7 +32484,7 @@ try {
           }
         }, /*#__PURE__*/_reactDefault.default.createElement(_reactBootstrapCardDefault.default.Img, {
           variant: "top",
-          src: movie.ImagePath,
+          src: movie.ImageUrl,
           __self: this,
           __source: {
             fileName: _jsxFileName,
@@ -33586,7 +33586,7 @@ try {
             columnNumber: 25
           }
         }, /*#__PURE__*/_reactDefault.default.createElement("img", {
-          src: movie.ImagePath,
+          src: movie.ImageUrl,
           __self: this,
           __source: {
             fileName: _jsxFileName,
@@ -35910,7 +35910,7 @@ try {
               }
             }, /*#__PURE__*/_reactDefault.default.createElement(_reactBootstrapCardDefault.default.Img, {
               variant: "top",
-              src: movie.ImagePath,
+              src: movie.ImageUrl,
               __self: this,
               __source: {
                 fileName: _jsxFileName,

@@ -52,7 +52,7 @@ export class MovieView extends React.Component {
                             <Button onClick={() => { this.handleAdd(movie); }}>Favorite</Button>
                         </div>
                         <div className="movie-poster">
-                            <img src={movie.ImagePath} />
+                            <img src={movie.ImageUrl} />
                         </div>
                         <div className="movie-title">
                             <span className="label">Title: </span>
