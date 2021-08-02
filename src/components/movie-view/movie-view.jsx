@@ -42,8 +42,11 @@ export class MovieView extends React.Component {
 
     render() {
 
-        const { movie } = this.props;
-
+        const { movie, directors, genres } = this.props;
+        const director = directors.find(d => d._id === movie.Director[0]);
+        const genre = genres.find(d => d._id === movie.Genre[0]);
+        console.log(director)
+        console.log(genre)
         return (
             <Row className="justify-content-md-center">
                 <Col md={6}>
@@ -52,7 +55,7 @@ export class MovieView extends React.Component {
                             <Button onClick={() => { this.handleAdd(movie); }}>Favorite</Button>
                         </div>
                         <div className="movie-poster">
-                            <img src={movie.ImageUrl} />
+                            <img src={movie.imageUrl} />
                         </div>
                         <div className="movie-title">
                             <span className="label">Title: </span>
@@ -62,11 +65,11 @@ export class MovieView extends React.Component {
                             <span className="label">Description: </span>
                             <span className="value">{movie.Description}</span>
                         </div>
-                        <Link to={`/directors/${movie.Director.Name}`}>
+                        <Link to={`/directors/${director.Name}`}>
                             <Button variant="link">Director</Button>
                         </Link>
 
-                        <Link to={`/genres/${movie.Genre.Name}`}>
+                        <Link to={`/genres/${genre.Name}`}>
                             <Button variant="link">Genre</Button>
                         </Link>
                         <Link to={`/`}>

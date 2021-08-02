@@ -15,7 +15,7 @@ export class ProfileView extends React.Component {
             Password: "",
             Email: "",
             Birthday: "",
-            FavoriteMovies: [],
+            FavoriteMovie: [],
             user: "",
             users: [],
             UsernameError: {},
@@ -154,24 +154,24 @@ export class ProfileView extends React.Component {
     render() {
         const { user, movies } = this.props;
         const { UsernameError, EmailError, PasswordError, BirthdateError } = this.state;
-        const FavoriteMovieList = movies.filter((movie) => {
-            return this.state.FavoriteMovies.includes(movie._id);
+        const FavoriteMovie = movies.filter((movie) => {
+            return this.state.FavoriteMovie.includes(movie._id);
         });
 
         return (
             <div className="userProfile">
                 <Container>
-                    {/*<Row className="justify-content-md-center">
-                        <Col md={8}>
+                    <Row className="justify-content-md-center">
+                        <Col md={12}>
                             <div className="favMovies">
-                                <Card.Text>Favorite Movies:</Card.Text>
+                                <Card.Text><h1>Favorite Movies:</h1></Card.Text>
                                 <Row>
-                                    {FavoriteMovieList.map((movie) => {
+                                    {FavoriteMovie.map((movie) => {
                                         return (
                                             <Col md={3} key={movie._id}>
                                                 <div key={movie._id}>
                                                     <Card>
-                                                        <Card.Img src={movie.ImagePath} />
+                                                        <Card.Img src={movie.imageUrl} />
                                                         <Card.Body>
                                                             <Link to={`/movies/${movie._id}`}>
                                                                 <Card.Title>{movie.Title}</Card.Title>
@@ -186,11 +186,11 @@ export class ProfileView extends React.Component {
                                 </Row>
                             </div>
                         </Col>
-                                </Row>*/}
+                    </Row>
 
                     <div className="profile-view">
                         <Form className="justify-content-md-center">
-                            <h1>Update Profile</h1>
+                            <h3>Update Profile</h3>
                             <Form.Group controlId="formUsername">
                                 <Form.Label>Username:</Form.Label>
                                 <Form.Control type="text" name="Username" placeholder="Change Username" value={this.state.Username} onChange={(e) => this.handleChange(e)} />
@@ -251,15 +251,15 @@ export class ProfileView extends React.Component {
                             </Button>
                         </Form>
 
-                        <div className="favoriteMovies">
+                        {/* <div className="favoriteMovies">
                             <Card.Text>Favorites:</Card.Text>
                             <Row>
-                                {FavoriteMovieList.map((movie) => {
+                                {FavoriteMovie.map((movie) => {
                                     return (
                                         <Col md={4} key={movie._id}>
                                             <div key={movie._id}>
                                                 <Card>
-                                                    <Card.Img variant="top" src={movie.ImageUrl} />
+                                                    <Card.Img variant="top" src={movie.imageUrl} />
                                                     <Card.Body>
                                                         <Link to={`/movies/${movie._id}`}>
                                                             <Card.Title>{movie.Title}</Card.Title>
@@ -272,7 +272,7 @@ export class ProfileView extends React.Component {
                                     );
                                 })}
                             </Row>
-                        </div>
+                            </div>*/}
                     </div>
                 </Container>
             </div >
