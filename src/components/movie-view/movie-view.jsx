@@ -29,13 +29,16 @@ export class MovieView extends React.Component {
             });
     }
 
-    handleRemove() {
+    handleRemove(movie) {
         const token = localStorage.getItem("token");
-        const user = localStorage.getItem("user");
-        axios.delete(`https://myfilmdb.herokuapp.com/users/${user}` + "/movies/" +
-            this.props.movie._id, {},
-            { headers: { Authorization: `Bearer ${token}` } }
-        )
+        //const user = localStorage.getItem("user");
+        const url =
+            "https://myfilmdb.herokuapp.com/users/" +
+            localStorage.getItem("user") + "/movies/" + movie._id;
+
+        axios.delete(url, "", {
+            headers: { Authorization: `Bearer ${token}` },
+        })
             .then((response) => {
                 console.log(response);
                 alert(this.props.movie.Title + " has been removed from your list.");
@@ -44,7 +47,7 @@ export class MovieView extends React.Component {
 
     render() {
 
-        const { movie, directors, genres } = this.props;
+        const { movie, directors, genres, onBackClick } = this.props;
         const director = directors.find(d => d._id === movie.Director[0]);
         const genre = genres.find(d => d._id === movie.Genre[0]);
         console.log(director)
@@ -53,19 +56,8 @@ export class MovieView extends React.Component {
             <Row className="justify-content-md-center">
                 <Col md={6}>
                     <div className="movie-view">
-                        <div>
-                            <Button onClick={() => { this.handleAdd(movie); }}>Favorite</Button>
-                        </div>
                         <div className="movie-poster">
                             <img src={movie.imageUrl} />
-                        </div>
-                        <div className="movie-title">
-                            <span className="label">Title: </span>
-                            <span className="value">{movie.Title}</span>
-                        </div>
-                        <div className="movie-description">
-                            <span className="label">Description: </span>
-                            <span className="value">{movie.Description}</span>
                         </div>
                         <Link to={`/directors/${director.Name}`}>
                             <Button variant="link">Director</Button>
@@ -74,9 +66,19 @@ export class MovieView extends React.Component {
                         <Link to={`/genres/${genre.Name}`}>
                             <Button variant="link">Genre</Button>
                         </Link>
-                        <Link to={`/`}>
-                            <Button type="button">Back</Button>
-                        </Link>
+                        <div className="movie-title">
+                            <span className="label">Title: </span>
+                            <span className="value">{movie.Title}</span>
+                        </div>
+                        <div className="movie-description">
+                            <span className="label">Description: </span>
+                            <span className="value">{movie.Description}</span>
+                        </div>
+                        <div>
+                            <Button onClick={() => { this.handleAdd(movie); }}>Favorite</Button>
+                            <Button variant="danger" onClick={() => this.handleRemove(movie)}>Remove</Button>
+                            <Button variant="secondary" size="submit" onClick={() => { onBackClick(null); }}>Back</Button>
+                        </div>
                     </div>
                 </Col>
             </Row>

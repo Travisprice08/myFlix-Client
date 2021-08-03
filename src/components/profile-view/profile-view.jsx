@@ -15,8 +15,8 @@ export class ProfileView extends React.Component {
             Password: "",
             Email: "",
             Birthday: "",
-            FavoriteMovie: [],
-            user: "",
+            FavoriteMovies: [],
+            user: null,
             users: [],
             UsernameError: {},
             PasswordError: {},
@@ -37,26 +37,29 @@ export class ProfileView extends React.Component {
     }
 
     getUsers(token) {
-        axios.get('https://myfilmdb.herokuapp.com/users', {
-            headers: { Authorization: `Bearer ${token}` }
-        })
-            .then(response => {
-                this.setState({
-                    users: response.data
-                });
-                console.log(response)
+        let url = 'https://myfilmdb.herokuapp.com/users/' +
+            localStorage.getItem('user');
+        axios
+            .get(url, {
+                headers: { Authorization: `Bearer ${token}` },
             })
-            .catch(function (error) {
-                console.log(error);
+            .then((response) => {
+                this.setState({
+                    Username: response.data.Username,
+                    Password: response.data.Password,
+                    Email: response.data.Email,
+                    Birthday: response.data.Birthday,
+                    Favorites: response.data.Favorites,
+                });
             });
     }
 
-    removeFavorite(movieInfo) {
+    removeFavorite(movie) {
         const token = localStorage.getItem("token");
         const url = "https://myfilmdb.herokuapp.com/users" +
             localStorage.getItem("user") +
             "/movies/" +
-            movieInfo._id;
+            movie._id;
         axios
             .delete(url, {
                 headers: { Authorization: ` Bearer ${token}` },
@@ -64,7 +67,7 @@ export class ProfileView extends React.Component {
             .then((response) => {
                 console.log(response);
                 this.componentDidMount();
-                alert(movieInfo.Title + " has been removed from your list.");
+                alert(movie.Title + " has been removed from your list.");
             });
     }
 
@@ -153,9 +156,11 @@ export class ProfileView extends React.Component {
 
     render() {
         const { user, movies } = this.props;
+        console.log(movies);
+        //console.log(user);
         const { UsernameError, EmailError, PasswordError, BirthdateError } = this.state;
         const FavoriteMovies = movies.filter((movie) => {
-            return this.state.FavoriteMovie.includes(movie._id);
+            return this.state.FavoriteMovies.includes(movie._id);
         });
 
         return (
@@ -243,7 +248,7 @@ export class ProfileView extends React.Component {
                             </Link>
 
                             <Link to={`/`}>
-                                <Button variant="secondary" type="submit" onClick={(e) => { onBackClick(e); }}>Back</Button>
+                                <Button variant="secondary" type="submit">Back</Button>
                             </Link>
 
                             <Button variant="danger" onClick={() => this.handleDelete()}>
