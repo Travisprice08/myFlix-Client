@@ -154,7 +154,7 @@ export class ProfileView extends React.Component {
     render() {
         const { user, movies } = this.props;
         const { UsernameError, EmailError, PasswordError, BirthdateError } = this.state;
-        const FavoriteMovie = movies.filter((movie) => {
+        const FavoriteMovies = movies.filter((movie) => {
             return this.state.FavoriteMovie.includes(movie._id);
         });
 
@@ -166,7 +166,7 @@ export class ProfileView extends React.Component {
                             <div className="favMovies">
                                 <Card.Text><h1>Favorite Movies:</h1></Card.Text>
                                 <Row>
-                                    {FavoriteMovie.map((movie) => {
+                                    {FavoriteMovies.map((movie) => {
                                         return (
                                             <Col md={3} key={movie._id}>
                                                 <div key={movie._id}>

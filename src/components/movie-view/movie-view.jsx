@@ -16,15 +16,17 @@ export class MovieView extends React.Component {
 
     handleAdd(movie) {
         const token = localStorage.getItem("token");
-        const user = localStorage.getItem("user");
-        axios.post(`https://myfilmdb.herokuapp.com/users/${user}` + "/movies/" +
-            this.props.movie._id, {},
-            { headers: { Authorization: `Bearer ${token}` } }
-        )
+        const url =
+            "https://myfilmdb.herokuapp.com/users/" +
+            localStorage.getItem("user") + "/movies/" + movie._id;
+
+        axios.post(url, "", {
+            headers: { Authorization: `Bearer ${token}` },
+        })
             .then((response) => {
                 console.log(response);
-                alert(this.props.movie.Title + " has been added to your favorites!");
-            })
+                alert(movie.Title + " has been added to favorites!");
+            });
     }
 
     handleRemove() {
