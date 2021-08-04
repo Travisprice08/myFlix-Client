@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Card from 'react-bootstrap/Card';
 import Container from "react-bootstrap/Container";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Button, Row, Col, Form } from "react-bootstrap";
+import { Button, Row, Col, Form, CardDeck, Card } from "react-bootstrap";
 
 
 export class ProfileView extends React.Component {
@@ -44,19 +43,21 @@ export class ProfileView extends React.Component {
                 headers: { Authorization: `Bearer ${token}` },
             })
             .then((response) => {
+                console.log('get-user-data', response.data)
                 this.setState({
                     Username: response.data.Username,
                     Password: response.data.Password,
                     Email: response.data.Email,
                     Birthday: response.data.Birthday,
-                    Favorites: response.data.Favorites,
+                    FavoriteMovies: response.data.FavoriteMovies,
                 });
             });
     }
 
     removeFavorite(movie) {
         const token = localStorage.getItem("token");
-        const url = "https://myfilmdb.herokuapp.com/users" +
+        console.log(token)
+        const url = "https://myfilmdb.herokuapp.com/users/" +
             localStorage.getItem("user") +
             "/movies/" +
             movie._id;
@@ -156,42 +157,45 @@ export class ProfileView extends React.Component {
 
     render() {
         const { user, movies } = this.props;
-        console.log(movies);
+        console.log('profile-view', movies);
         //console.log(user);
-        const { UsernameError, EmailError, PasswordError, BirthdateError } = this.state;
-        const FavoriteMovies = movies.filter((movie) => {
-            return this.state.FavoriteMovies.includes(movie._id);
+        const { UsernameError, EmailError, PasswordError, BirthdateError, FavoriteMovies } = this.state;
+        const favoriteMovieList = movies.filter((movie) => {
+            return FavoriteMovies.includes(movie._id);
         });
+        console.log(user)
+        console.log('fav-list', favoriteMovieList)
 
         return (
             <div className="userProfile">
                 <Container>
-                    <Row className="justify-content-md-center">
-                        <Col md={12}>
-                            <div className="favMovies">
-                                <Card.Text><h1>Favorite Movies:</h1></Card.Text>
-                                <Row>
-                                    {FavoriteMovies.map((movie) => {
+
+                    <div className="favorite-movies mt-5">
+                        <h3>Favorites</h3>
+                        <Row>
+                            <CardDeck>
+                                {favoriteMovieList.length > 0 &&
+                                    favoriteMovieList.map((movie) => {
                                         return (
-                                            <Col md={3} key={movie._id}>
-                                                <div key={movie._id}>
-                                                    <Card>
-                                                        <Card.Img src={movie.imageUrl} />
-                                                        <Card.Body>
-                                                            <Link to={`/movies/${movie._id}`}>
-                                                                <Card.Title>{movie.Title}</Card.Title>
-                                                            </Link>
-                                                            <Button onClick={() => this.removeFavorite(movie)}>Remove</Button>
-                                                        </Card.Body>
-                                                    </Card>
-                                                </div>
-                                            </Col>
+
+                                            <Card key={movie._id} className="fav-card mt-2">
+                                                <Link to={`/movies/${movie._id}`}>
+                                                    <Card.Img id="poster" src={movie.imageUrl} />
+                                                </Link>
+                                                <Button
+                                                    className="remove font-weight-bold mt-2"
+                                                    id="remove"
+                                                    onClick={() => this.removeFavorite(movie)}
+                                                >
+                                                    Remove
+                                                </Button>
+                                            </Card>
+
                                         );
                                     })}
-                                </Row>
-                            </div>
-                        </Col>
-                    </Row>
+                            </CardDeck>
+                        </Row>
+                    </div>
 
                     <div className="profile-view">
                         <Form className="justify-content-md-center">
@@ -255,29 +259,6 @@ export class ProfileView extends React.Component {
                                 Delete Profile
                             </Button>
                         </Form>
-
-                        {/* <div className="favoriteMovies">
-                            <Card.Text>Favorites:</Card.Text>
-                            <Row>
-                                {FavoriteMovie.map((movie) => {
-                                    return (
-                                        <Col md={4} key={movie._id}>
-                                            <div key={movie._id}>
-                                                <Card>
-                                                    <Card.Img variant="top" src={movie.imageUrl} />
-                                                    <Card.Body>
-                                                        <Link to={`/movies/${movie._id}`}>
-                                                            <Card.Title>{movie.Title}</Card.Title>
-                                                        </Link>
-                                                        <Button onClick={() => this.removeFavorite(movie)}>Remove</Button>
-                                                    </Card.Body>
-                                                </Card>
-                                            </div>
-                                        </Col>
-                                    );
-                                })}
-                            </Row>
-                            </div>*/}
                     </div>
                 </Container>
             </div >
