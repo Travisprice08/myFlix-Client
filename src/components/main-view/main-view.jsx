@@ -1,9 +1,16 @@
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
-import { MovieCard } from '../movie-card/movie-card';
+import { setMovies } from '../../actions/actions';
+import { setUser } from '../../actions/actions';
+
+import MoviesList from '../movies-list/movies-list';
+
+//MovieCard will be imported and used in MoviesList
+//import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
@@ -11,25 +18,22 @@ import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
 import { ProfileView } from '../profile-view/profile-view';
 
-import { Navbar } from 'react-bootstrap';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
+import { Navbar, Row, Col, Container, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 
 import './main-view.scss';
 
-
-export class MainView extends React.Component {
+//Removed keyword "extends from the beginning"
+class MainView extends React.Component {
 
     constructor() {
         super();
         this.state = {
-            movies: [],
+            //commented out movies state for 3.8
+            //movies: [],
             directors: [],
             genres: [],
-            user: null
+            //user: null
         };
     }
 
@@ -52,9 +56,10 @@ export class MainView extends React.Component {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(response => {
-                this.setState({
+                /*this.setState({
                     movies: response.data
-                });
+                });*/
+                this.props.setMovies(response.data)
             })
             .catch(function (error) {
                 console.log(error);
@@ -142,8 +147,9 @@ export class MainView extends React.Component {
 
     render() {
 
-
-        const { movies, directors, genres, user, history } = this.state;
+        const { movies, user } = this.props;
+        //movies now extracted from this.props instead of this.state
+        const { directors, genres, history } = this.state;
         console.log(movies)
         console.log(directors)
         console.log(genres)
@@ -174,11 +180,12 @@ export class MainView extends React.Component {
                         </Col>
                         if (movies) {
                             if (movies.length === 0) return <div className="main-view" />;
-                            return movies.map(m => (
+                            /*return movies.map(m => (
                                 <Col md={3} key={m._id}>
                                     <MovieCard movie={m} director={directors.find(d => d._id === m.Director[0])} />
                                 </Col>
-                            ))
+                            ))*/
+                            return <MoviesList key={movies._id} movies={movies} />
                         }
                     }} />
 
@@ -241,4 +248,11 @@ export class MainView extends React.Component {
 
 }
 
-export default MainView;
+let mapStateToProps = state => {
+    return {
+        movies: state.movies,
+        user: state.User
+    }
+}
+
+export default connect(mapStateToProps, { setMovies, setUser })(MainView);
