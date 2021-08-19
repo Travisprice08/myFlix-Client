@@ -1059,6 +1059,7 @@ try {
   var _reducersReducers = require('./reducers/reducers');
   var _reducersReducersDefault = _parcelHelpers.interopDefault(_reducersReducers);
   var _componentsMainViewMainView = require('./components/main-view/main-view');
+  var _componentsMainViewMainViewDefault = _parcelHelpers.interopDefault(_componentsMainViewMainView);
   require('./index.scss');
   var _jsxFileName = "/Users/Travis/Documents/WebDev/myFlix-Folder/myFlix-Client/src/index.jsx";
   const store = _redux.createStore(_reducersReducersDefault.default);
@@ -1081,7 +1082,7 @@ try {
             lineNumber: 20,
             columnNumber: 17
           }
-        }, /*#__PURE__*/_reactDefault.default.createElement(_componentsMainViewMainView.MainView, {
+        }, /*#__PURE__*/_reactDefault.default.createElement(_componentsMainViewMainViewDefault.default, {
           __self: this,
           __source: {
             fileName: _jsxFileName,
@@ -50159,12 +50160,12 @@ visibilityFilter: visibilityFilter(state.visibilityFilter, action),
 movies: movies(state.movies, action)
 }
 }*/
-const movieApp = _redux.combineReducers({
+const moviesApp = _redux.combineReducers({
   visibilityFilter,
   movies,
   user
 });
-exports.default = movieApp;
+exports.default = moviesApp;
 
 },{"redux":"7panR","../actions/actions":"5S6cN","@parcel/transformer-js/lib/esmodule-helpers.js":"1Ikc8"}]},["1j6wU","68WUB","1DVjT"], "1DVjT", "parcelRequire279c")
 
