@@ -33,16 +33,14 @@ class MainView extends React.Component {
             //movies: [],
             directors: [],
             genres: [],
-            //user: null
+            // user: ""
         };
     }
 
     componentDidMount() {
         let accessToken = localStorage.getItem('token');
         if (accessToken !== null) {
-            this.setState({
-                user: localStorage.getItem('user')
-            });
+            this.props.setUser(localStorage.getItem("user"))
             this.getMovies(accessToken);
             this.getUsers(accessToken);
             this.getDirectors(accessToken)
@@ -118,15 +116,17 @@ class MainView extends React.Component {
        to that *particular user*/
 
     onLoggedIn(authData) {
-        console.log(authData);
-        this.setState({
-            user: authData.user.Username
-        });
+        console.log('authData: ', authData);
+        // this.setState({
+        //     user: authData.user.Username
+        // });
+
+        this.props.setUser(authData.user.Username);
 
         localStorage.setItem('token', authData.token);
         localStorage.setItem('user', authData.user.Username);
         this.getMovies(authData.token);
-        this.getUsers(authData.token);
+        // this.getUsers(authData.token);
     }
 
     //Add log out button
@@ -153,6 +153,7 @@ class MainView extends React.Component {
         console.log(movies)
         console.log(directors)
         console.log(genres)
+        console.log(user)
         return (
             <Router>
                 <Row className="main-view justify-content-md-center">
@@ -176,7 +177,7 @@ class MainView extends React.Component {
 
                     <Route exact path="/" render={() => {
                         if (!user) return <Col>
-                            <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+                            <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
                         </Col>
                         if (movies) {
                             if (movies.length === 0) return <div className="main-view" />;
@@ -251,7 +252,7 @@ class MainView extends React.Component {
 let mapStateToProps = state => {
     return {
         movies: state.movies,
-        user: state.User
+        user: state.user
     }
 }
 
